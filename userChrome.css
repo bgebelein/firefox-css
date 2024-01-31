@@ -216,10 +216,14 @@
   top: 0;
 }
 
+#urlbar[breakout]{
+  top: 3px !important;
+}
+
 #urlbar[breakout][breakout-extended]{
   position: fixed;
   left: 0;
-  top: 3px;
+  top: 3px !important;
 }
 
 #urlbar-background,
@@ -250,11 +254,12 @@
 }
 
 .urlbarView{
-  width: 100%;
-  border-inline: 4px solid transparent;
+  width: 100% !important;
+  border-inline: 4px solid transparent !important;
   background-color: var(--lwt-accent-color);
   margin-top: -1px;
   border-radius: 4px;
+  margin-inline: 0 !important;
 }
 
 /* Hides the address bar history dropmarker permanently. */
@@ -271,6 +276,6 @@
 
 toolbar .toolbarbutton-1 > .toolbarbutton-icon{
   width: 36px !important;
-  height: 36px;
+  height: 36px !important;
   padding: 10px !important;
 }
