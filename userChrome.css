@@ -1,0 +1,276 @@
+/* ------------------------------------ Layout ------------------------------------ */
+
+:root[uidensity="compact"] {
+  --tab-block-margin: 2px !important;
+}
+
+/* Modify these to change relative widths or default height */
+#navigator-toolbox {
+  --uc-navigationbar-width: 30vw;
+  --uc-toolbar-height: 40px;
+  --uc-urlbar-min-width: 10vw; /* minimum width for opened urlbar */
+}
+#titlebar {
+  will-change: unset !important;
+  transition: none !important;
+  opacity: 1 !important;
+}
+#scrollbutton-up,
+#scrollbutton-down {
+  border-block-width: 2px !important;
+}
+
+/* Override for other densities */
+:root[uidensity="compact"] #navigator-toolbox {
+  --uc-toolbar-height: 34px;
+}
+:root[uidensity="touch"] #navigator-toolbox {
+  --uc-toolbar-height: 44px;
+}
+
+:root[uidensity="compact"] #urlbar-container {
+  --urlbar-container-height: var(--uc-toolbar-height) !important;
+  padding-block: 0 !important;
+}
+:root[uidensity="compact"] #urlbar {
+  --urlbar-toolbar-height: var(--uc-toolbar-height) !important;
+}
+
+/* prevent urlbar overflow on narrow windows */
+/* Dependent on how many items are in navigation toolbar and tabs-/nav-bar ratio - ADJUST AS NEEDED */
+@media screen and (max-width: 1600px) {
+  #urlbar-container {
+    min-width: unset !important;
+  }
+}
+
+:root[tabsintitlebar] #toolbar-menubar {
+  height: initial !important;
+}
+:root[tabsintitlebar]
+  #toolbar-menubar[inactive]
+  > :not(.titlebar-buttonbox-container) {
+  opacity: 0;
+  pointer-events: none;
+}
+:root[tabsintitlebar] #toolbar-menubar[inactive] {
+  margin-bottom: calc(0px - var(--uc-toolbar-height));
+}
+
+#TabsToolbar > .titlebar-buttonbox-container,
+.titlebar-spacer[type="post-tabs"] {
+  display: none;
+}
+#TabsToolbar {
+  margin-right: var(--uc-navigationbar-width);
+  --tabs-navbar-shadow-size: 0px;
+}
+
+#toolbar-menubar[autohide="true"] > .titlebar-buttonbox-container {
+  min-height: var(--uc-toolbar-height) !important;
+}
+#tabbrowser-tabs,
+.tabbrowser-tab[pinned] {
+  min-height: var(--tab-min-height) !important;
+}
+
+#nav-bar {
+  margin-left: calc(100vw - var(--uc-navigationbar-width));
+  margin-top: calc(0px - var(--uc-toolbar-height));
+  /* Override style set in window_control_placeholder_support.css  */
+  border-left-width: 0px !important;
+}
+
+#nav-bar::before {
+  display: none !important;
+}
+
+/* Rules specific to window controls on left layout */
+@media (-moz-bool-pref: "userchrome.force-window-controls-on-left.enabled"),
+  (-moz-platform: macos),
+  (-moz-gtk-csd-reversed-placement) {
+  :root:not([inFullscreen])
+    #TabsToolbar-customization-target
+    > .titlebar-spacer[type="pre-tabs"] {
+    width: var(--uc-window-drag-space-post) !important;
+    display: flex !important;
+  }
+  #TabsToolbar > .titlebar-buttonbox-container {
+    display: flex;
+  }
+}
+@supports -moz-bool-pref("userchrome.force-window-controls-on-left.enabled") {
+  :root:not([inFullscreen])
+    #TabsToolbar-customization-target
+    > .titlebar-spacer[type="pre-tabs"] {
+    width: var(--uc-window-drag-space-post) !important;
+    display: flex !important;
+  }
+  #TabsToolbar > .titlebar-buttonbox-container {
+    display: flex;
+  }
+}
+
+/* 1px margin on touch density causes tabs to be too high */
+.tab-close-button {
+  margin-top: 0 !important;
+}
+
+/* Hide dropdown placeholder */
+#urlbar-container:not(:hover) .urlbar-history-dropmarker {
+  margin-inline-start: -28px;
+}
+
+/* Fix customization view */
+#customization-panelWrapper > .panel-arrowbox > .panel-arrow {
+  margin-inline-end: initial !important;
+}
+
+/* ------------------------------------ Navigation ------------------------------------ */
+
+#nav-bar {
+  background-color: transparent !important;
+}
+
+#back-button {
+  position: fixed;
+  left: 72px;
+  top: 9px;
+}
+
+#forward-button {
+  position: fixed;
+  left: 118px;
+  top: 9px;
+}
+
+#back-button image,
+#forward-button image {
+  height: 36px !important;
+  width: 36px !important;
+  padding: 10px !important;
+}
+
+/* ------------------------------------ Tab Bar ------------------------------------ */
+
+/* Hide additional space after tabs */
+.titlebar-spacer[type="post-tabs"] {
+  display: none;
+}
+
+/* Make space for forward/back buttons */
+.titlebar-spacer[type="pre-tabs"] {
+  width: 92px !important;
+}
+
+/* Hide Button for all tabs context menu */
+#alltabs-button {
+  display: none;
+}
+
+#tabbrowser-tabs {
+  --tab-min-height: 36px !important;
+  position: relative !important;
+  top: 3px;
+}
+
+#tabs-newtab-button{
+  position: relative;
+  top: 1px;
+}
+
+/* ------------------------------------ Tabs ------------------------------------ */
+
+/* Show close tab button when hovering on a tab */
+.tabbrowser-tab:not([selected]):not([pinned]):hover .tab-close-button {
+  display: inline-flex;
+}
+
+.tab-background[selected]{
+  outline: none !important;
+  border: 1px solid transparent !important;
+  box-shadow: none !important;
+  background-clip: padding-box;
+}
+
+.tab-background[selected] > .tab-context-line{
+  margin: -5px 0 0 !important;
+}
+
+.tabbrowser-tab[selected] > .tab-stack::before{
+  content: "";
+  display: flex;
+  min-height: inherit;
+  border-radius: var(--tab-border-radius);
+  grid-area: 1/1;
+  margin-block: var(--tab-block-margin);
+  /* Edit gradient colors here */
+  background: repeat linear-gradient(90deg, #6e008b, #ff4f5e) !important;
+}
+
+/* ------------------------------------ URL Bar ------------------------------------ */
+
+#urlbar {
+  --urlbar-height: 38px;
+  --urlbar-toolbar-height: 40px;
+  top: 0;
+}
+
+#urlbar[breakout][breakout-extended]{
+  position: fixed;
+  left: 0;
+  top: 3px;
+}
+
+#urlbar-background,
+#searchbar {
+  background-color: var(--toolbar-bgcolor) !important;
+  top: -4px;
+  height: 36px;
+}
+
+#urlbar-input-container{
+  height: 36px !important;
+}
+
+#urlbar-input-box {
+  padding-left: 0.75rem;
+  top: 1px;
+}
+
+/* Icons in URL Bar (PiP, Reader, Translation, Bookmark) */
+#page-action-buttons{
+    display: none;
+}
+
+/* Got to entered URL Button → */
+#urlbar-go-button{
+  position: relative;
+  top: -2px;
+}
+
+.urlbarView{
+  width: 100%;
+  border-inline: 4px solid transparent;
+  background-color: var(--lwt-accent-color);
+  margin-top: -1px;
+  border-radius: 4px;
+}
+
+/* Hides the address bar history dropmarker permanently. */
+
+.urlbar-history-dropmarker {
+  display: none !important;
+}
+
+/* ------------------------------------ Tool Bar ------------------------------------ */
+
+.toolbarbutton-1{
+  margin-top: -2px !important;
+}
+
+toolbar .toolbarbutton-1 > .toolbarbutton-icon{
+  width: 36px !important;
+  height: 36px;
+  padding: 10px !important;
+}
