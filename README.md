@@ -6,7 +6,9 @@ A custom theme for firefox
 
 ## How to use (Mac OS)
 
-1. Got to `/Users/User/Library/Application\ Support/Firefox/Profiles/thvujhi7.default-release`
-2. Find `chrome` folder (If it does not exist, create it)
-3. Download `userChrome.css` and paste it into the chrome folder
-4. Restart Firefox
+1. Download Repo: [Download here](https://github.com/bgebelein/firefox-css/archive/refs/heads/main.zip)
+2. Extract .zip
+3. Open Finder and navigate to `/Users/User/Library/Application\ Support/Firefox/Profiles/thvujhi7.default-release`
+4. Find `chrome` folder (If it does not exist, create it)
+5. Copy `userChrome.css` from the extracted .zip to the chrome folder
+6. Restart Firefox
