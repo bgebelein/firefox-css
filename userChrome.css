@@ -123,6 +123,14 @@
   display: none;
 }
 
+/* Move reload button in URL Bar */
+#reload-button
+{
+  position: absolute;
+  top: 6px;
+  right: 40px;
+}
+
 /* ---------------------------- Toolbar / Bookmarks ---------------------------- */
 
 /* Toolbar with bookmarks */
