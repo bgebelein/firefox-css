@@ -124,11 +124,10 @@
 }
 
 /* Move reload button in URL Bar */
-#reload-button
-{
+#stop-reload-button {
   position: absolute;
-  top: 6px;
-  right: 40px;
+  top: 4px;
+  right: 4px;
 }
 
 /* ---------------------------- Toolbar / Bookmarks ---------------------------- */
