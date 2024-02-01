@@ -213,16 +213,6 @@
 #urlbar {
   --urlbar-height: 38px;
   --urlbar-toolbar-height: 40px;
-  top: 0;
-}
-
-#urlbar[breakout]{
-  top: 3px !important;
-}
-
-#urlbar[breakout][breakout-extended]{
-  position: fixed;
-  left: 0;
   top: 3px !important;
 }
 
