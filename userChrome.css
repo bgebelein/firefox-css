@@ -1,191 +1,148 @@
-/* ------------------------------------ Layout ------------------------------------ */
+/* ---------------------------- Translucent Tabbar for macOS ---------------------------- */
 
-:root[uidensity="compact"] {
+:root#main-window,
+:root:not(:-moz-window-inactive) #navigator-toolbox,
+#nav-bar {
+ background-color: transparent !important; 
+}
+
+/* make tabs toolbar translucent */
+/* FF 121 removed support for -moz-mac-source-list - using menupopup instead */
+:root #TabsToolbar,
+:root #titlebar,
+:root #tabbrowser-tabs {
+  -moz-default-appearance: menupopup !important;
+  appearance: auto !important;
+  background-color: transparent !important;
+}
+
+/* ---------------------------- One Line Layout ---------------------------- */
+
+:root[tabsintitlebar][sizemode="normal"]{
+  --uc-window-drag-space-width: 24px;
+}
+:root[uidensity="compact"]{
   --tab-block-margin: 2px !important;
 }
 
 /* Modify these to change relative widths or default height */
-#navigator-toolbox {
-  --uc-navigationbar-width: 30vw;
-  --uc-toolbar-height: 40px;
-  --uc-urlbar-min-width: 10vw; /* minimum width for opened urlbar */
+#navigator-toolbox{
+  --uc-navigationbar-width: 40vw;
+  --uc-toolbar-height: 44px;
+  --uc-urlbar-min-width: 50vw; /* minimum width for opened urlbar */
 }
-#titlebar {
-  will-change: unset !important;
-  transition: none !important;
-  opacity: 1 !important;
-}
+
 #scrollbutton-up,
-#scrollbutton-down {
-  border-block-width: 2px !important;
-}
+#scrollbutton-down{ border-block-width: 2px !important; }
 
 /* Override for other densities */
-:root[uidensity="compact"] #navigator-toolbox {
+:root[uidensity="compact"] #navigator-toolbox{
   --uc-toolbar-height: 34px;
 }
-:root[uidensity="touch"] #navigator-toolbox {
-  --uc-toolbar-height: 44px;
-}
 
-:root[uidensity="compact"] #urlbar-container {
-  --urlbar-container-height: var(--uc-toolbar-height) !important;
-  padding-block: 0 !important;
-}
-:root[uidensity="compact"] #urlbar {
-  --urlbar-toolbar-height: var(--uc-toolbar-height) !important;
+:root[uidensity="touch"] #navigator-toolbox{
+  --uc-toolbar-height: 40px;
 }
 
 /* prevent urlbar overflow on narrow windows */
-/* Dependent on how many items are in navigation toolbar and tabs-/nav-bar ratio - ADJUST AS NEEDED */
-@media screen and (max-width: 1600px) {
-  #urlbar-container {
-    min-width: unset !important;
-  }
+/* Dependent on how many items are in navigation toolbar ADJUST AS NEEDED */
+@media screen and (max-width: 1500px){
+    #urlbar-container{
+      min-width: 300px !important;
+      flex-shrink: 1 !important;
+    }
 }
 
-:root[tabsintitlebar] #toolbar-menubar {
-  height: initial !important;
-}
-:root[tabsintitlebar]
-  #toolbar-menubar[inactive]
-  > :not(.titlebar-buttonbox-container) {
-  opacity: 0;
-  pointer-events: none;
-}
-:root[tabsintitlebar] #toolbar-menubar[inactive] {
-  margin-bottom: calc(0px - var(--uc-toolbar-height));
-}
-
-#TabsToolbar > .titlebar-buttonbox-container,
-.titlebar-spacer[type="post-tabs"] {
-  display: none;
-}
-#TabsToolbar {
-  margin-right: var(--uc-navigationbar-width);
+#TabsToolbar{
+  margin-left: var(--uc-navigationbar-width);
   --tabs-navbar-shadow-size: 0px;
 }
 
-#toolbar-menubar[autohide="true"] > .titlebar-buttonbox-container {
-  min-height: var(--uc-toolbar-height) !important;
-}
-#tabbrowser-tabs,
-.tabbrowser-tab[pinned] {
-  min-height: var(--tab-min-height) !important;
+#tabbrowser-tabs{
+  --tab-min-height: calc(var(--uc-toolbar-height) - 2 * var(--tab-block-margin,0px)) !important;
 }
 
-#nav-bar {
-  margin-left: calc(100vw - var(--uc-navigationbar-width));
+/* This isn't useful when tabs start in the middle of the window */
+
+.titlebar-spacer[type="pre-tabs"]{
+  display: none
+}
+
+#navigator-toolbox > #nav-bar{
+  margin-right:calc(100vw - var(--uc-navigationbar-width));
   margin-top: calc(0px - var(--uc-toolbar-height));
-  /* Override style set in window_control_placeholder_support.css  */
-  border-left-width: 0px !important;
 }
 
-#nav-bar::before {
-  display: none !important;
+/* Window drag space  */
+:root[tabsintitlebar="true"] #nav-bar{
+  padding-left: 72px !important;
 }
 
-/* Rules specific to window controls on left layout */
-@media (-moz-bool-pref: "userchrome.force-window-controls-on-left.enabled"),
-  (-moz-platform: macos),
-  (-moz-gtk-csd-reversed-placement) {
-  :root:not([inFullscreen])
-    #TabsToolbar-customization-target
-    > .titlebar-spacer[type="pre-tabs"] {
-    width: var(--uc-window-drag-space-post) !important;
-    display: flex !important;
-  }
-  #TabsToolbar > .titlebar-buttonbox-container {
+/* Rules for window controls on left layout */
+
+@media (-moz-gtk-csd-reversed-placement),
+       (-moz-platform: macos){
+  .titlebar-buttonbox-container{
+    position: fixed;
     display: flex;
+    left: 0px;
+    z-index: 3;
+    height: var(--uc-toolbar-height);
+    align-items: center
   }
+  :root[tabsintitlebar="true"] #nav-bar{ /*! padding-inline: calc(var(--uc-window-drag-space-width,0px) + 84px) 0px !important; */ }
 }
-@supports -moz-bool-pref("userchrome.force-window-controls-on-left.enabled") {
-  :root:not([inFullscreen])
-    #TabsToolbar-customization-target
-    > .titlebar-spacer[type="pre-tabs"] {
-    width: var(--uc-window-drag-space-post) !important;
-    display: flex !important;
-  }
-  #TabsToolbar > .titlebar-buttonbox-container {
-    display: flex;
-  }
+@media (-moz-platform: macos){
+  :root[tabsintitlebar="true"] #nav-bar{ /*! padding-inline: calc(var(--uc-window-drag-space-width,0px) + 72px) 0px !important; */ }
 }
 
 /* 1px margin on touch density causes tabs to be too high */
-.tab-close-button {
-  margin-top: 0 !important;
-}
+.tab-close-button{ margin-top: 0 !important }
+
+/* Make opened urlbar overlay the toolbar */
+#urlbar[open]:focus-within{ min-width: var(--uc-urlbar-min-width,none) !important; }
 
 /* Hide dropdown placeholder */
-#urlbar-container:not(:hover) .urlbar-history-dropmarker {
-  margin-inline-start: -28px;
-}
+#urlbar-container:not(:hover) .urlbar-history-dropmarker{ margin-inline-start: -28px; }
 
 /* Fix customization view */
-#customization-panelWrapper > .panel-arrowbox > .panel-arrow {
-  margin-inline-end: initial !important;
+#customization-panelWrapper > .panel-arrowbox > .panel-arrow{ margin-inline-end: initial !important; }
+
+/* ---------------------------- URL Bar ---------------------------- */
+
+/* Pop-out URL bar and recommendations */
+#urlbar[focused][open]{
+  position: fixed !important;
+  width: calc(100vw - 372px) !important;
+  left: 50% !important;
+  transform: translateX(-50%);
 }
 
-/* ------------------------------------ Navigation ------------------------------------ */
-
-#nav-bar {
-  background-color: transparent !important;
-}
-
-#back-button {
-  position: fixed;
-  left: 72px;
-  top: 9px;
-}
-
-#forward-button {
-  position: fixed;
-  left: 118px;
-  top: 9px;
-}
-
-#back-button image,
-#forward-button image {
-  height: 36px !important;
-  width: 36px !important;
-  padding: 10px !important;
-}
-
-/* ------------------------------------ Tab Bar ------------------------------------ */
-
-/* Hide additional space after tabs */
-.titlebar-spacer[type="post-tabs"] {
+/* Hide icons in URL Bar (PiP, Reader, Translation, Bookmark) */
+#page-action-buttons{
   display: none;
 }
 
-/* Make space for forward/back buttons */
-.titlebar-spacer[type="pre-tabs"] {
-  width: 92px !important;
+/* ---------------------------- Toolbar / Bookmarks ---------------------------- */
+
+/* Toolbar with bookmarks */
+#PersonalToolbar{
+  padding: 0 !important;;
 }
 
-/* Hide Button for all tabs context menu */
-#alltabs-button {
-  display: none;
+/* Bookmarks Bar */
+#personal-bookmarks{
+  padding: 2px;
 }
 
-#tabbrowser-tabs {
-  --tab-min-height: 36px !important;
-  position: relative !important;
-  top: 3px;
+/* Single Bookmark Item */
+.bookmark-item{
+  padding: 6px 8px !important;;
 }
 
-#tabs-newtab-button{
-  position: relative;
-  top: 1px;
-}
+/* ---------------------------- Tab Bar ---------------------------- */
 
-/* ------------------------------------ Tabs ------------------------------------ */
-
-/* Show close tab button when hovering on a tab */
-.tabbrowser-tab:not([selected]):not([pinned]):hover .tab-close-button {
-  display: inline-flex;
-}
-
+/* Colored border for tabs */
 .tab-background[selected]{
   outline: none !important;
   border: 1px solid transparent !important;
@@ -208,64 +165,17 @@
   background: repeat linear-gradient(90deg, #6e008b, #ff4f5e) !important;
 }
 
-/* ------------------------------------ URL Bar ------------------------------------ */
-
-#urlbar {
-  --urlbar-height: 38px;
-  --urlbar-toolbar-height: 40px;
-  top: 3px !important;
+/* Hide Button for all tabs context menu */
+#alltabs-button {
+  display: none;
 }
 
-#urlbar-background,
-#searchbar {
-  background-color: var(--toolbar-bgcolor) !important;
-  top: -4px;
-  height: 36px;
-}
+/* ---------------------------- Tool Buttons ---------------------------- */
 
-#urlbar-input-container{
-  height: 36px !important;
-}
-
-#urlbar-input-box {
-  padding-left: 0.75rem;
-  top: 1px;
-}
-
-/* Icons in URL Bar (PiP, Reader, Translation, Bookmark) */
-#page-action-buttons{
-    display: none;
-}
-
-/* Got to entered URL Button → */
-#urlbar-go-button{
-  position: relative;
-  top: -2px;
-}
-
-.urlbarView{
-  width: 100% !important;
-  border-inline: 4px solid transparent !important;
-  background-color: var(--lwt-accent-color);
-  margin-top: -1px;
-  border-radius: 4px;
-  margin-inline: 0 !important;
-}
-
-/* Hides the address bar history dropmarker permanently. */
-
-.urlbar-history-dropmarker {
-  display: none !important;
-}
-
-/* ------------------------------------ Tool Bar ------------------------------------ */
-
-.toolbarbutton-1{
-  margin-top: -2px !important;
-}
-
-toolbar .toolbarbutton-1 > .toolbarbutton-icon{
-  width: 36px !important;
-  height: 36px !important;
-  padding: 10px !important;
+/* Menu-Button */
+#PanelUI-menu-button
+{
+  position: fixed;
+  right: 0;
+  top: 6px;
 }
