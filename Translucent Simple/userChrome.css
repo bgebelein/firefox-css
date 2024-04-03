@@ -17,7 +17,7 @@
 /* ---------------------------- URL Bar ---------------------------- */
 
 #urlbar-background{
-  background-color: rgba(28, 27, 34, .5) !important;
+  background-color: rgba(28, 27, 34, .8) !important;
 }
 
 #urlbar:is([focused="true"], [open]) > #urlbar-background, #searchbar:focus-within {
