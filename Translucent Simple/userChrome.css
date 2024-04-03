@@ -22,16 +22,23 @@
   left: 50% !important;
   width: 50vw !important;
   transform: translateX(-50%) translateY(-50%);
-  min-height: 40vh !important;
+  min-height: 35vh !important;
   box-shadow: 0 22px 70px 4px rgba(0, 0, 0, 0.56) !important;
   border-radius: 1.5rem !important;
+}
+
+#urlbar[breakout][breakout-extend] #urlbar-input-container{
+  height: 5rem !important;
+  display: flex !important;
+  align-items: center !important;
+  font-size: 2rem !important;
 }
 
 .urlbarView{
   display: flex !important;
   flex-direction: column !important;
   justify-content: space-between !important;
-  min-height: 35vh !important;
+  min-height: 40vh !important;
 }
 
 /* URL Bar Background Color */
@@ -40,9 +47,10 @@
   border-radius: 1.5rem !important;
 }
 
-#urlbar:is([focused="true"], [open]) > #urlbar-background,
+#urlbar:is([focused="true"],
+[open]) > #urlbar-background,
 #searchbar:focus-within {
-  background-color: rgba(28, 27, 34, .96) !important;
+  background-color: rgba(28, 27, 34, .98) !important;
 }
 
 
