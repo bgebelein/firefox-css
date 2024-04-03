@@ -1,0 +1,71 @@
+/* ---------------------------- Translucent Style ---------------------------- */
+
+:root#main-window,
+:root:not(:-moz-window-inactive) #navigator-toolbox {
+ background-color: transparent !important; 
+}
+
+#titlebar,
+#nav-bar,
+#PersonalToolbar
+{
+  background-color: transparent !important;
+  -moz-default-appearance: menupopup !important;
+  appearance: auto !important;
+}
+
+/* ---------------------------- URL Bar ---------------------------- */
+
+#urlbar-background{
+  background-color: rgba(28, 27, 34, .5) !important;
+}
+
+#urlbar:is([focused="true"], [open]) > #urlbar-background, #searchbar:focus-within {
+  background-color: rgba(28, 27, 34, .99) !important;
+}
+
+#urlbar[focused="true"]:not([suppress-focus-border]) > #urlbar-background, #searchbar:focus-within {
+  outline-color: #0250bb !important;
+}
+
+/* ---------------------------- Tabs ---------------------------- */
+
+/* Colored border for selected tabs */
+#TabsToolbar #firefox-view-button:hover:not([open]) > .toolbarbutton-icon,
+.tabbrowser-tab:hover > .tab-stack > .tab-background:not([selected], [multiselected]){
+  background-color: rgba(28, 27, 34, .8) !important;
+}
+
+.tab-background[selected]{
+  background-color: rgb(28, 27, 34) !important;
+  outline: none !important;
+  border: 1px solid transparent !important;
+  box-shadow: none !important;
+  background-clip: padding-box;
+}
+
+.tab-background[selected] > .tab-context-line{
+  margin: -5px 0 0 !important;
+}
+
+.tabbrowser-tab[selected] > .tab-stack::before{
+  content: "";
+  display: flex;
+  min-height: inherit;
+  border-radius: var(--tab-border-radius);
+  grid-area: 1/1;
+  margin-block: var(--tab-block-margin);
+  /* Edit gradient colors here */
+  background: repeat linear-gradient(90deg, #6e008b, #ff4f5e) !important;
+}
+
+/* ---------------------------- Tab Bar ---------------------------- */
+
+/* Minimize space before and after tabs */
+.titlebar-spacer[type="pre-tabs"]{
+    width: 12px !important;
+}
+
+.titlebar-spacer[type="post-tabs"]{
+  width: 4px !important;
+}
