@@ -16,26 +16,50 @@
 
 /* ---------------------------- URL Bar ---------------------------- */
 
+/* Spotlight URL Bar */
+#urlbar[breakout][breakout-extend] {
+  top: 50vh !important;
+  left: 50% !important;
+  width: 50vw !important;
+  transform: translateX(-50%) translateY(-50%);
+  min-height: 35vh !important;
+  box-shadow: 0 22px 70px 4px rgba(0, 0, 0, 0.56) !important;
+  border-radius: 1.5rem !important;
+}
+
+.urlbarView{
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  min-height: 35vh !important;
+}
+
+/* URL Bar Background Color */
 #urlbar-background{
   background-color: rgba(28, 27, 34, .8) !important;
+  border-radius: 1.5rem !important;
 }
 
-#urlbar:is([focused="true"], [open]) > #urlbar-background, #searchbar:focus-within {
-  background-color: rgba(28, 27, 34, .99) !important;
+#urlbar:is([focused="true"], [open]) > #urlbar-background,
+#searchbar:focus-within {
+  background-color: rgba(28, 27, 34, .96) !important;
 }
 
+
+/* URL Bar Focus Border */
 #urlbar[focused="true"]:not([suppress-focus-border]) > #urlbar-background, #searchbar:focus-within {
   outline-color: #0250bb !important;
 }
 
 /* ---------------------------- Tabs ---------------------------- */
 
-/* Colored border for selected tabs */
+/* Background Color for hovered tabs */
 #TabsToolbar #firefox-view-button:hover:not([open]) > .toolbarbutton-icon,
 .tabbrowser-tab:hover > .tab-stack > .tab-background:not([selected], [multiselected]){
   background-color: rgba(28, 27, 34, .8) !important;
 }
 
+/* Colored border for selected tabs */
 .tab-background[selected]{
   background-color: rgb(28, 27, 34) !important;
   outline: none !important;
