@@ -33,7 +33,7 @@
   transform: translateX(-50%) translateY(-50%);
   min-height: 35vh !important;
   box-shadow: 0 22px 70px 4px rgba(0, 0, 0, 0.56) !important;
-  border-radius: 2rem !important;
+  border-radius: 1rem !important;
 }
 
 #urlbar[open][breakout][breakout-extend] #urlbar-input-container{
@@ -53,7 +53,7 @@
 /* URL Bar Background Color */
 #urlbar-background{
   background-color: rgba(28, 27, 34, .8) !important;
-  border-radius: 2rem !important;
+  border-radius: 1rem !important;
 }
 
 #urlbar:is([focused="true"],
